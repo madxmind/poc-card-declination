@@ -18,14 +18,24 @@ class CardProduct
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="cardProducts")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="cardProducts", fetch="EAGER")
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Product::class)
+     * @ORM\ManyToOne(targetEntity=Product::class, fetch="EAGER")
      */
     private $product;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ProductDeclination::class)
+     */
+    private $productDeclination;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $quantity;
 
     public function getId(): ?int
     {
@@ -52,6 +62,30 @@ class CardProduct
     public function setProduct(?Product $product): self
     {
         $this->product = $product;
+
+        return $this;
+    }
+
+    public function getProductDeclination(): ?ProductDeclination
+    {
+        return $this->productDeclination;
+    }
+
+    public function setProductDeclination(?ProductDeclination $productDeclination): self
+    {
+        $this->productDeclination = $productDeclination;
+
+        return $this;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(int $quantity): self
+    {
+        $this->quantity = $quantity;
 
         return $this;
     }

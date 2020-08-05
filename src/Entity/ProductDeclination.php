@@ -20,11 +20,6 @@ class ProductDeclination
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="productDeclinations")
-     */
-    private $product;
-
-    /**
      * @ORM\Column(type="smallint")
      */
     private $quantity;
@@ -34,41 +29,24 @@ class ProductDeclination
      */
     private $price;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="productDeclinations", fetch="EAGER")
+     */
+    private $product;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Declination::class, fetch="EAGER")
+     */
+    private $declinations;
+
     public function __construct()
     {
-        $this->product = new ArrayCollection();
-        $this->declination = new ArrayCollection();
+        $this->declinations = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return Collection|Product[]
-     */
-    public function getProduct(): Collection
-    {
-        return $this->product;
-    }
-
-    public function addProduct(Product $product): self
-    {
-        if (!$this->product->contains($product)) {
-            $this->product[] = $product;
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): self
-    {
-        if ($this->product->contains($product)) {
-            $this->product->removeElement($product);
-        }
-
-        return $this;
     }
 
     public function getQuantity(): ?int
@@ -91,6 +69,44 @@ class ProductDeclination
     public function setPrice(float $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Declination[]
+     */
+    public function getDeclinations(): Collection
+    {
+        return $this->declinations;
+    }
+
+    public function addDeclination(Declination $declination): self
+    {
+        if (!$this->declinations->contains($declination)) {
+            $this->declinations[] = $declination;
+        }
+
+        return $this;
+    }
+
+    public function removeDeclination(Declination $declination): self
+    {
+        if ($this->declinations->contains($declination)) {
+            $this->declinations->removeElement($declination);
+        }
 
         return $this;
     }
