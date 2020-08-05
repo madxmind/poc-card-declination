@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\CardProduct;
 use App\Entity\Declination;
 use App\Entity\DeclinationCategory;
 use App\Entity\Product;
@@ -46,6 +47,8 @@ class AppFixtures extends Fixture
             $manager->persist($user);
         }
 
+        $declinations = [];
+        $productDeclinations = [];
         foreach ($declinationsArray as $k => $v) {
             $declinationCategory = new DeclinationCategory();
             $declinationCategory->setReference($k);
@@ -54,21 +57,37 @@ class AppFixtures extends Fixture
                 $declination = new Declination();
                 $declination->setDeclinationCategory($declinationCategory)
                     ->setName($v2);
+                $declinations[] = $declination;
                 $manager->persist($declination);
 
                 foreach ($products as $product) {
-                    for ($i = 1; $i <= 3; $i++) {
-                        $productDeclination = new ProductDeclination();
-                        $productDeclination->setPrice($product->getPrice() * 0.8)
-                            ->setQuantity($product->getQuantity() - 2);
-                        $manager->persist($productDeclination);
+                    $productDeclination = new ProductDeclination();
+                    $productDeclination->setPrice(rand($product->getPrice() * 0.5, $product->getPrice()))
+                        ->setQuantity(rand(0, $product->getQuantity() - 1));
+                    $productDeclinations[] = $productDeclination;
+                    $manager->persist($productDeclination);
+                    for ($i = 1; $i <= 2; $i++) {
                         $product->addProductDeclination($productDeclination);
                     }
                 }
             }
         }
 
+        foreach ($productDeclinations as $v) {
+            foreach ($declinations as $v2) {
+                $v->addDeclination($v2);
+            }
+        }
 
+        foreach ($users as $v) {
+            foreach ($products as $v2) {
+                $cardProduct = new CardProduct();
+                $cardProduct->setUser($v)
+                    ->setProduct($v2)
+                    ->setQuantity(rand(1, $v2->getQuantity()));
+                $manager->persist($cardProduct);
+            }
+        }
 
         $manager->flush();
     }

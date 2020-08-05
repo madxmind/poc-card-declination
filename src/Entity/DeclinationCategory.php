@@ -25,7 +25,7 @@ class DeclinationCategory
     private $reference;
 
     /**
-     * @ORM\OneToMany(targetEntity=Declination::class, mappedBy="declinationCategory")
+     * @ORM\OneToMany(targetEntity=Declination::class, mappedBy="declinationCategory", fetch="EAGER")
      */
     private $declinations;
 

@@ -23,7 +23,7 @@ class Declination
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity=DeclinationCategory::class, inversedBy="declinations")
+     * @ORM\ManyToOne(targetEntity=DeclinationCategory::class, inversedBy="declinations", fetch="EAGER")
      */
     private $declinationCategory;
 

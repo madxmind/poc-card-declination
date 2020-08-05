@@ -30,19 +30,20 @@ class Product
     private $price;
 
     /**
-     * @ORM\ManyToMany(targetEntity=ProductDeclination::class, mappedBy="product")
-     */
-    private $productDeclinations;
-
-    /**
      * @ORM\Column(type="smallint")
      */
     private $quantity;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ProductDeclination::class, mappedBy="product", fetch="EAGER")
+     */
+    private $productDeclinations;
 
     public function __construct()
     {
         $this->productDeclinations = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -73,6 +74,18 @@ class Product
         return $this;
     }
 
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(int $quantity): self
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
     /**
      * @return Collection|ProductDeclination[]
      */
@@ -85,7 +98,7 @@ class Product
     {
         if (!$this->productDeclinations->contains($productDeclination)) {
             $this->productDeclinations[] = $productDeclination;
-            $productDeclination->addProduct($this);
+            $productDeclination->setProduct($this);
         }
 
         return $this;
@@ -95,20 +108,11 @@ class Product
     {
         if ($this->productDeclinations->contains($productDeclination)) {
             $this->productDeclinations->removeElement($productDeclination);
-            $productDeclination->removeProduct($this);
+            // set the owning side to null (unless already changed)
+            if ($productDeclination->getProduct() === $this) {
+                $productDeclination->setProduct(null);
+            }
         }
-
-        return $this;
-    }
-
-    public function getQuantity(): ?int
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(int $quantity): self
-    {
-        $this->quantity = $quantity;
 
         return $this;
     }
