@@ -95,8 +95,8 @@ class ProductDeclination
 
     public function addDeclination(Declination $declination): self
     {
-        if (!$this->declinations->contains($declination)) {
-            $this->declinations[] = $declination;
+        if (!$this->declination->contains($declination)) {
+            $this->declination[] = $declination;
         }
 
         return $this;
