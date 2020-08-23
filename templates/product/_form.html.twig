@@ -1,0 +1,18 @@
+{{ form_start(form) }}
+
+    <div class="btn btn-primary collection-add" data-collection="{{ form.productDeclinations.vars.id }}">Add attribute</div>
+
+    <div 
+        id="{{ form.productDeclinations.vars.id }}" 
+        class="collection collection-declinaison" 
+        data-index="{{ (form.productDeclinations|length == 0) ? 0 : (form.productDeclinations|last.vars.name + 1) }}"  
+        data-prototype="{{ include('product_declination/_form.html.twig', { form: form.productDeclinations.vars.prototype })|e('html_attr') }}">
+        {% for productDeclination in form.productDeclinations %}
+            {% include 'product_declination/_form.html.twig' with {'form': productDeclination,} %}
+        {% endfor %}
+    </div>
+
+
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <h1>Homepage</h1>
+
+    <a href="{{ path('product_category_index') }}">Procuct Category</a> <br/>
+    <a href="{{ path('product_index') }}">Product</a> <br/>
+    <a href="{{ path('attribute_category_index') }}">Attribute Category</a> <br/>
+    <a href="{{ path('attribute_index') }}">Attribute</a> <br/>
+{% endblock %}

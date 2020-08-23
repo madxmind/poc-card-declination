@@ -18,12 +18,12 @@ class CardProduct
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="cardProducts", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="cardProducts")
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Product::class, fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity=Product::class)
      */
     private $product;
 
