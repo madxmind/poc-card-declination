@@ -15,6 +15,8 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('shortDescription')
+            ->add('description')
             ->add('imageFile', VichImageType::class, [
                 'required' => false,
                 'allow_delete' => true,
@@ -24,16 +26,14 @@ class ProductType extends AbstractType
             ])
             ->add('price')
             ->add('quantity')
-            ->add('productCategories', null, [
-                'by_reference' => false,
-            ])
+            ->add('productCategories')
             ->add('productDeclinations', CollectionType::class, [
                 'entry_type' => ProductDeclinationType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
                 'constraints' => new \Symfony\Component\Validator\Constraints\Valid(),
-                ])
+            ])
         ;
     }
 

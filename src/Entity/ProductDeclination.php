@@ -26,7 +26,6 @@ class ProductDeclination
 
     /**
      * @ORM\Column(type="smallint")
-     * @Assert\GreaterThan(value=10)
      */
     private $quantity;
 
@@ -57,7 +56,7 @@ class ProductDeclination
     /**
      * @ORM\ManyToMany(targetEntity=Attribute::class)
      * @Assert\Count(
-     *      min = 2,
+     *      min = 1,
      *      max = 3,
      *      minMessage = "You must specify at least {{ limit }} attributes",
      *      maxMessage = "You cannot specify more than {{ limit }} attributes"

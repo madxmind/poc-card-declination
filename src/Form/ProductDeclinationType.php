@@ -23,7 +23,13 @@ class ProductDeclinationType extends AbstractType
             ->add('quantity')
             ->add('price')
             ->add('attributes', null, [
-                'by_reference' => false,
+                'group_by' => function($choice) {
+                    $currentCategory = null;
+                    if($choice->getAttributeCategory() != $currentCategory) {
+                        $currentCategory = $choice->getAttributeCategory();
+                        return $choice->getAttributeCategory()->getName();
+                    }
+                },
             ])
         ;
     }

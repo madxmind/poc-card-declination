@@ -13,3 +13,9 @@ $('.custom-file-input').on('change', function(e) {
     }
 });
 // ---------------------
+
+
+// For Select User-Frendly Jquery : https://developer.snapappointments.com/bootstrap-select/examples/
+$('.collection-item-container select').selectpicker();
+$('.multi-select select').selectpicker();
+// ---------------------

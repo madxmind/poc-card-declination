@@ -30,6 +30,16 @@ class Product
     private $name;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $shortDescription = [];
+
+    /**
      * @ORM\Column(type="float")
      */
     private $price;
@@ -88,6 +98,30 @@ class Product
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getShortDescription(): ?array
+    {
+        return $this->shortDescription;
+    }
+
+    public function setShortDescription(?array $shortDescription): self
+    {
+        $this->shortDescription = $shortDescription;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

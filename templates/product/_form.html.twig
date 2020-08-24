@@ -12,7 +12,12 @@
         {% endfor %}
     </div>
 
+    <div class="multi-select">
 
-    {{ form_widget(form) }}
+        {{ form.vars.value.shortDescription[app.request.locale] }}
+
+        {{ form_widget(form) }}
+    </div>
+
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

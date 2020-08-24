@@ -42,6 +42,11 @@ class AppFixtures extends Fixture
                 $product = new Product();
                 $product
                     ->setName('Produit ' . $i)
+                    ->setShortDescription([
+                        'fr' => 'SD fr' . $i,
+                        'en' => 'SD en' . $i,
+                    ])
+                    ->setDescription('Description HTML ' . $i)
                     ->setPrice($i * 10)
                     ->setQuantity($i * 5)
                     ->addProductCategory($v)

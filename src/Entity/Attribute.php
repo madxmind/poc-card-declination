@@ -24,6 +24,7 @@ class Attribute
 
     /**
      * @ORM\ManyToOne(targetEntity=AttributeCategory::class, inversedBy="attributes")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $attributeCategory;
 
