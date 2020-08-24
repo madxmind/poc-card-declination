@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+  <file id="messages.fr">
+    <unit id="8bTbNvk" name="attributes">
+      <notes>
+        <note category="file-source" priority="1">poc-card-declination\src\Form\AttributeCategoryType.php:14</note>
+        <note category="file-source" priority="1">poc-card-declination\src\Form\ProductDeclinationType.php:15</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>attributes</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="gqNTf.D" name="name">
+      <notes>
+        <note category="file-source" priority="1">poc-card-declination\src\Form\AttributeCategoryType.php:14</note>
+        <note category="file-source" priority="1">poc-card-declination\src\Form\AttributeType.php:14</note>
+        <note category="file-source" priority="1">poc-card-declination\src\Form\ProductCategoryType.php:14</note>
+        <note category="file-source" priority="1">poc-card-declination\src\Form\ProductType.php:16</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>name</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="dhhUvxy" name="attributeCategory">
+      <notes>
+        <note category="file-source" priority="1">poc-card-declination\src\Form\AttributeType.php:14</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>attributeCategory</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="Cj4nuMq" name="products">
+      <notes>
+        <note category="file-source" priority="1">poc-card-declination\src\Form\ProductCategoryType.php:14</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>products</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="aDtTH0H" name="price">
+      <notes>
+        <note category="file-source" priority="1">poc-card-declination\src\Form\ProductDeclinationType.php:15</note>
+        <note category="file-source" priority="1">poc-card-declination\src\Form\ProductType.php:16</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>price</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="GnswjY3" name="quantity">
+      <notes>
+        <note category="file-source" priority="1">poc-card-declination\src\Form\ProductDeclinationType.php:15</note>
+        <note category="file-source" priority="1">poc-card-declination\src\Form\ProductType.php:16</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>quantity</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="Vy4gIdp" name="imageFile">
+      <notes>
+        <note category="file-source" priority="1">poc-card-declination\src\Form\ProductDeclinationType.php:15</note>
+        <note category="file-source" priority="1">poc-card-declination\src\Form\ProductType.php:16</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>imageFile</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="jNisrf8" name="productDeclinations">
+      <notes>
+        <note category="file-source" priority="1">poc-card-declination\src\Form\ProductType.php:16</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>productDeclinations</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="ByH_T6B" name="productCategories">
+      <notes>
+        <note category="file-source" priority="1">poc-card-declination\src\Form\ProductType.php:16</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>productCategories</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="yQRveje" name="description">
+      <notes>
+        <note category="file-source" priority="1">poc-card-declination\src\Form\ProductType.php:16</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>description</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="k0M.mZg" name="shortDescription">
+      <notes>
+        <note category="file-source" priority="1">poc-card-declination\src\Form\ProductType.php:16</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>shortDescription</source>
+        <target></target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

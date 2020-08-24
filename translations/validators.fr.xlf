@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+  <file id="validators.fr">
+    <unit id="SWtXVeN" name="You must specify at least {{ limit }} attributes">
+      <notes>
+        <note category="file-source" priority="1">poc-card-declination\src\Entity\ProductDeclination.php:0</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>You must specify at least {{ limit }} attributes</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="Dk2kKKb" name="You cannot specify more than {{ limit }} attributes">
+      <notes>
+        <note category="file-source" priority="1">poc-card-declination\src\Entity\ProductDeclination.php:0</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>You cannot specify more than {{ limit }} attributes</source>
+        <target></target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

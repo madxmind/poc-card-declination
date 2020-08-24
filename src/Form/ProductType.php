@@ -15,7 +15,7 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('shortDescription')
+            ->add('shortDescription') // Hidden this & and foreach($langues) as key[FR] => value[My text]
             ->add('description')
             ->add('imageFile', VichImageType::class, [
                 'required' => false,
