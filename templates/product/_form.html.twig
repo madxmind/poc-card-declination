@@ -14,7 +14,9 @@
 
     <div class="multi-select">
 
-        {{ form.vars.value.shortDescription[app.request.locale] }}
+        {# {{ form.vars.value.shortDescription[app.request.locale] }} #}
+
+        {{ dump(form.shortDescription) }}
 
         {{ form_widget(form) }}
     </div>

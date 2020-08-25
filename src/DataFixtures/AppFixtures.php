@@ -36,17 +36,22 @@ class AppFixtures extends Fixture
             $manager->persist($productCategory);
         }
 
+        $arrayChoices = [
+            'fr' => 'text er elang fr',
+            'en' => 'text egetr getr  lang en',
+            'de' => 'text eger lang de',
+        ];
+
         $products = [];
         foreach ($productCategories as $v) {
             for ($i = 1; $i <= 10; $i++) {
                 $product = new Product();
                 $product
                     ->setName('Produit ' . $i)
-                    ->setShortDescription([
-                        'fr' => 'SD fr' . $i,
-                        'en' => 'SD en' . $i,
-                    ])
                     ->setDescription('Description HTML ' . $i)
+                    // ->setShortDescription($arrayChoices)
+                    ->setShortDescription([])
+                    // ->setDesc3($arrayChoices)
                     ->setPrice($i * 10)
                     ->setQuantity($i * 5)
                     ->addProductCategory($v)

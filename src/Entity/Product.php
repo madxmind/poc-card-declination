@@ -39,6 +39,11 @@ class Product
      */
     private $shortDescription = [];
 
+    // /**
+    //  * @ORM\Column(type="json", nullable=true)
+    //  */
+    // private $desc3 = [];
+
     /**
      * @ORM\Column(type="float")
      */
@@ -125,6 +130,18 @@ class Product
 
         return $this;
     }
+
+    // public function getDesc3(): ?array
+    // {
+    //     return $this->desc3;
+    // }
+
+    // public function setDesc3(?array $desc3): self
+    // {
+    //     $this->desc3 = $desc3;
+
+    //     return $this;
+    // }
 
     public function getPrice(): ?float
     {
