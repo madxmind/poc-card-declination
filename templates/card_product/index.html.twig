@@ -3,5 +3,7 @@
 {% block title "Card" %}
 
 {% block body %}
-	{{ dump(product_declinations) }}
+	{% for cardProduct in cardProducts %}
+		{{ dump(cardProduct) }}
+	{% endfor %}
 {% endblock %}

@@ -21,7 +21,7 @@
                 <th>Price</th>
                 <td>
                     <div id="bloc_price_product_detail">
-                        {% include 'product/_product_price.html.twig' with {'product': product} only %}
+                        {% include 'product/_price.html.twig' with {'product': product} only %}
                     </div>
                 </td>
             </tr>
@@ -32,11 +32,19 @@
                     {% endif %}
                 </td>
             </tr>
-        <tr>
-            <td>
-{#                <div id="add_to_card_button">{% include "boutique/page-article-panier.html.twig" %}</div>#}
-            </td>
-        </tr>
+            <tr>
+                <th>Quantité</th>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="bloc_add_to_card" data-product-id="{{ product.id }}">
+                        Quantité : <input type="number" value="1" min="{{ product.minimalQuantity ?? 1 }}" class="quantity">
+                        <hr/>
+                        {% include "product/_add_to_card.html.twig" with {'product': product} only %}
+                    </div>
+                </td>
+            </tr>
         </tbody>
     </table>
 
@@ -47,7 +55,7 @@
     {{ include('product/_delete_form.html.twig') }}
 
     <script>
-        let minimalQuantity = {{ product.minimalQuantity }};
+        let minimalQuantity = {{ product.minimalQuantity ?? 1 }};
     </script>
 
 {% endblock %}

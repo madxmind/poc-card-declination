@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\AttributeCategory;
+use App\Entity\CardProduct;
 use App\Entity\Product;
 use App\Entity\ProductDeclination;
+use App\Entity\User;
 use App\Form\ProductType;
 use App\Repository\AttributeCategoryRepository;
 use App\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -117,7 +120,7 @@ class ProductController extends AbstractController
     {
         $attributesArray = $this->getArrayAttributesFromNextAttributeCategory(
             $product, $request->query->get('attributeCategoryId', null),
-            $request->query->get('attributesString', '') // attributesString: 1-2|2-11|3-73
+            $request->query->get('attributesString', '')
         );
 
         return $this->json([
@@ -141,7 +144,7 @@ class ProductController extends AbstractController
         $productDeclination = $this->getDeclinationFromAttributes($product, $attributesString);
 
         return $this->json([
-            'html_price' => $productDeclination ? $this->render("product/_product_price.html.twig", [
+            'html_price' => $productDeclination ? $this->render("product/_price.html.twig", [
                 'product' => $product,
                 'productDeclination' => $productDeclination,
             ])->getContent() : '',
@@ -149,15 +152,58 @@ class ProductController extends AbstractController
         ], 200);
     }
 
+    /**
+     * @Route("/add-to-card/{product}", name="add-to-card", options={"expose"=true})
+     */
+    public function addToCard(
+        Product $product,
+        Request $request,
+        EntityManagerInterface $em
+    ): JsonResponse
+    {
+        $errors = [];
+        $productDeclination = null;
+
+        $quantity = $request->query->getInt('quantity', 1);
+
+        if(count($product->getProductDeclinations())) {
+
+            // TODO: Test this perfectly !!!
+
+            if(!$productDeclination = $this->getDeclinationFromAttributes($product, $request->query->get('attributesString', ''))) {
+                $errors[] = 'Declinaison !';
+            }
+        }
+
+        if(empty($errors)) {
+            $cardProduct = new CardProduct();
+            $cardProduct
+                ->setUser($this->getDoctrine()->getRepository(User::class)->findOneBy([]))
+                ->setProduct($product)
+                ->setProductDeclination($productDeclination)
+                ->setQuantity($quantity)
+                ;
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($cardProduct);
+            $entityManager->flush();
+        }
+
+
+        return $this->json([
+            'errors' => $errors,
+            'text_success' => 'Produit ajouté au panier',
+            'html_add_to_card' => $productDeclination ? $this->render("product/_add_to_card.html.twig", [
+                'product' => $product,
+                'productDeclination' => $productDeclination,
+            ])->getContent() : '',
+        ], 200);
+    }
+
 
 
     private function getDeclinationFromAttributes(Product $product, string $attributesString): ?ProductDeclination
     {
-        $attributesIdRequired = [];
-        $attributesArray = explode('|', $attributesString);
-        foreach ($attributesArray as $attributeString) {
-            $attributesIdRequired[] = explode('-', $attributeString)[1];
-        }
+        $attributesIdRequired = explode('|', $attributesString);
 
         foreach ($product->getProductDeclinations() as $productDeclination) {
             $validDeclination = true;
@@ -177,19 +223,7 @@ class ProductController extends AbstractController
 
     private function getArrayAttributesFromNextAttributeCategory(Product $product, ?int $attributeCategoryId, string $attributesString): array
     {
-        // TODO: Work with attributeNumber instead of attributeCategoryId
-
-        $attributesIdRequired = [];
-        if($attributesString !== '') {
-            $attributesArray = explode('|', $attributesString);
-            foreach ($attributesArray as $attributeString) {
-                $attributeArray = explode('-', $attributeString);
-                $attributesIdRequired[] = $attributeArray[1];
-                if ($attributeCategoryId == $attributeArray[0]) {
-                    break;
-                }
-            }
-        }
+        $attributesIdRequired = ($attributesString !== '') ? explode('|', $attributesString) : [];
 
         $attributes = [];
         foreach ($product->getProductDeclinations() as $productDeclination) {

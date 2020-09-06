@@ -1,0 +1,5 @@
+{% if product.productDeclinations|length <= 0 %}
+    <a href="#" class="add-to-card" data-product-id="{{ product.id }}">Add to card</a>
+{% elseif productDeclination is defined and productDeclination is not null %}
+    xxx
+{% endif %}
