@@ -9,6 +9,7 @@ use App\Entity\ProductDeclination;
 use App\Entity\User;
 use App\Form\ProductType;
 use App\Repository\AttributeCategoryRepository;
+use App\Repository\CardProductRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -148,6 +149,10 @@ class ProductController extends AbstractController
                 'product' => $product,
                 'productDeclination' => $productDeclination,
             ])->getContent() : '',
+            'html_add_to_card' => $productDeclination ? $this->render("product/_add_to_card.html.twig", [
+                'product' => $product,
+                'productDeclination' => $productDeclination,
+            ])->getContent() : '',
             'quantity' => ($productDeclination and $productDeclination->getQuantity()) ?? $product->getQuantity(),
         ], 200);
     }
@@ -155,47 +160,48 @@ class ProductController extends AbstractController
     /**
      * @Route("/add-to-card/{product}", name="add-to-card", options={"expose"=true})
      */
-    public function addToCard(
-        Product $product,
-        Request $request,
-        EntityManagerInterface $em
-    ): JsonResponse
+    public function addToCard(Product $product, Request $request, CardProductRepository $cardProductRepository): JsonResponse
     {
         $errors = [];
         $productDeclination = null;
-
-        $quantity = $request->query->getInt('quantity', 1);
+        $quantity = ($request->query->getInt('quantity', 0) === 0) ? 1 : $request->query->getInt('quantity');
 
         if(count($product->getProductDeclinations())) {
-
-            // TODO: Test this perfectly !!!
-
             if(!$productDeclination = $this->getDeclinationFromAttributes($product, $request->query->get('attributesString', ''))) {
-                $errors[] = 'Declinaison !';
+                $errors[] = 'Declinaison non trouvée';
             }
+        }
+        if(!$this->getUser()) {
+            $errors[] = 'Vous n\'êtes pas connecté.';
+        }
+
+        // TODO: acceptCmdEnRupture OU qtéDispo[Gamme] >= qtéSelect
+        if($product->getMinimalQuantity() < $quantity) {
+            $errors[] = 'Quantité minimal : ' . $product->getMinimalQuantity();
         }
 
         if(empty($errors)) {
-            $cardProduct = new CardProduct();
-            $cardProduct
-                ->setUser($this->getDoctrine()->getRepository(User::class)->findOneBy([]))
-                ->setProduct($product)
-                ->setProductDeclination($productDeclination)
-                ->setQuantity($quantity)
-                ;
+
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($cardProduct);
+            if($cardProduct = $cardProductRepository->findOneBy(['user' => $this->getUser(), 'product' => $product, 'productDeclination' => $productDeclination])) {
+                $cardProduct->setQuantity($cardProduct->getQuantity() + $quantity);
+            } else {
+                $cardProduct = new CardProduct();
+                $cardProduct
+                    ->setUser($this->getDoctrine()->getRepository(User::class)->findOneBy([]))
+                    ->setProduct($product)
+                    ->setProductDeclination($productDeclination)
+                    ->setQuantity($quantity)
+                ;
+                $entityManager->persist($cardProduct);
+            }
+
             $entityManager->flush();
         }
 
-
         return $this->json([
             'errors' => $errors,
-            'text_success' => 'Produit ajouté au panier',
-            'html_add_to_card' => $productDeclination ? $this->render("product/_add_to_card.html.twig", [
-                'product' => $product,
-                'productDeclination' => $productDeclination,
-            ])->getContent() : '',
+            'text_success' => '<div>Produit ajouté au panier</div>',
         ], 200);
     }
 

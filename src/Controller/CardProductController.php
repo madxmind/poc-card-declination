@@ -18,7 +18,7 @@ class CardProductController extends AbstractController
     public function index(CardProductRepository $cardProductRepository): Response
     {
         return $this->render('card_product/index.html.twig', [
-            'cardProducts' => $cardProductRepository->findAll(),
+            'cardProducts' => $cardProductRepository->findBy([], ['id' => 'DESC']),
         ]);
     }
 }

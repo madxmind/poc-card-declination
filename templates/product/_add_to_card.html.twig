@@ -1,5 +1,9 @@
-{% if product.productDeclinations|length <= 0 %}
-    <a href="#" class="add-to-card" data-product-id="{{ product.id }}">Add to card</a>
-{% elseif productDeclination is defined and productDeclination is not null %}
-    xxx
+{% if app.user %}
+    {% if product.productDeclinations|length <= 0 %}
+        <a href="#" class="add-to-card" data-product-id="{{ product.id }}">Add to card - No decl</a>
+    {% elseif productDeclination is defined and productDeclination is not null %}
+        <a href="#" class="add-to-card" data-product-id="{{ product.id }}">Add to card - DECL</a>
+    {% endif %}
+{% else %}
+    Merci de vous connecter pour commander ce produit
 {% endif %}

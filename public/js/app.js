@@ -29,8 +29,11 @@ $('#bloc_add_to_card').on('click', '.add-to-card', function(e){
         type:'POST',
         dataType:'JSON',
     }).done(function(data){
-        if(data.html_add_to_card) {
-            $('#bloc_add_to_card').html(data.html_add_to_card);
+        console.log(data.errors)
+        if(data.errors|length) {
+            $('#button_add_to_card').prepend(data.errors[0]);
+        } else {
+            $('#button_add_to_card').prepend(data.text_success);
         }
     });
 });
@@ -46,6 +49,7 @@ function selectGammes(attributeCategoryId = null)
         });
     }
     $('#bloc_price_product_detail').html('');
+    $('#button_add_to_card').html('');
     // -----
 
     $.ajax({
@@ -75,6 +79,9 @@ function selectGammes(attributeCategoryId = null)
             }).done(function(data) {
                 if(data.html_price) {
                     $('#bloc_price_product_detail').html(data.html_price);
+                }
+                if(data.html_add_to_card) {
+                    $('#bloc_add_to_card #button_add_to_card').html(data.html_add_to_card);
                 }
             });
         }

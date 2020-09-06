@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f0eb3729-47f8-4689-a169-0828a09b8f20" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/product/_price.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/CardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CardProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/CardProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CardProductController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProductController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/card/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/card_product/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/product/_product_price.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/product/_add_to_card.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/product/_add_to_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/product/_add_to_card.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/product/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/product/show.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -185,7 +184,8 @@
       <workItem from="1599284111974" duration="3658000" />
       <workItem from="1599289953396" duration="1443000" />
       <workItem from="1599316260856" duration="20153000" />
-      <workItem from="1599366881452" duration="16167000" />
+      <workItem from="1599366881452" duration="16215000" />
+      <workItem from="1599409866801" duration="3667000" />
     </task>
     <servers />
   </component>
