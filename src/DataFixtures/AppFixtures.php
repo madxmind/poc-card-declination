@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Attribute;
 use App\Entity\AttributeCategory;
+use App\Entity\AttributeCategoryGroup;
 use App\Entity\CardProduct;
 use App\Entity\Declination;
 use App\Entity\DeclinationCategory;
@@ -27,42 +28,33 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $productCategories = [];
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= 3; $i++) {
             $productCategory = new ProductCategory();
             $productCategory
-                ->setName('Catégorie produit ' . $i)
+                ->setName('CatProd ' . $i)
                 ;
             $productCategories[] = $productCategory;
             $manager->persist($productCategory);
         }
 
-        $arrayChoices = [
-            'fr' => 'text er elang fr',
-            'en' => 'text egetr getr  lang en',
-            'de' => 'text eger lang de',
-        ];
-
         $products = [];
-        foreach ($productCategories as $v) {
-            for ($i = 1; $i <= 10; $i++) {
-                $product = new Product();
-                $product
-                    ->setName('Produit ' . $i)
-                    ->setDescription('Description HTML ' . $i)
-                    // ->setShortDescription($arrayChoices)
-                    ->setShortDescription([])
-                    // ->setDesc3($arrayChoices)
-                    ->setPrice($i * 10)
-                    ->setQuantity($i * 5)
-                    ->addProductCategory($v)
-                    ;
-                $products[] = $product;
-                $manager->persist($product);
-            }
+        for ($i = 1; $i <= 3; $i++) {
+            $product = new Product();
+            $product
+                ->setName('Produit ' . $i)
+                ->setDescription('Description HTML ' . $i)
+                ->setPrice($i * 10)
+                ->setQuantity($i * 5)
+                ->setAcceptOrderOutOfStock(($i > 1) ? 1 : 0)
+                ->setMinimalQuantity(($i == 1) ? 5 : null)
+                ->addProductCategory($productCategories[$i-1])
+                ;
+            $products[] = $product;
+            $manager->persist($product);
         }
 
         $users = [];
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 3; $i++) {
             $user = new User();
             $user
                 ->setEmail('email' . $i . '@gmail.com')
@@ -84,24 +76,43 @@ class AppFixtures extends Fixture
             }
         }
 
-        $attributeCategories = [];
-        for ($i = 1; $i <= 3; $i++) {
+
+        $attributeCategoryGroupsArray = [
+            'image' => 'Image',
+            'select' => 'Liste déroulante',
+        ];
+        $attributeCategoryGroups = [];
+        foreach ($attributeCategoryGroupsArray as $attributeCategoryGroupKey => $attributeCategoryGroupArray) {
+            $attributeCategoryGroup = new AttributeCategoryGroup();
+            $attributeCategoryGroup
+                ->setName($attributeCategoryGroupArray)
+                ->setReference($attributeCategoryGroupKey)
+                ;
+            $manager->persist($attributeCategoryGroup);
+            $attributeCategoryGroups[] = $attributeCategoryGroup;
+        }
+
+        $attributesArray = [
+            'color' => ['blue', 'green', 'red'],
+            'size' => ['S', 'M', 'XXL'],
+            'model' => ['v1', 'v2', 'v999'],
+        ];
+        $attributeCategories = $attributes = [];
+        foreach ($attributesArray as $attributeCategoryKey => $attributeArray) {
             $attributeCategory = new AttributeCategory();
             $attributeCategory
-                ->setName('Catégorie attribut ' . $i)
+                ->setName($attributeCategoryKey)
+                ->setAttributeCategoryGroup($attributeCategoryGroups[$attributeCategoryKey == 'color' ? 0 : 1])
                 ;
             $attributeCategories[] = $attributeCategory;
             $manager->persist($attributeCategory);
-        }
 
-        $attributes = [];
-        foreach ($attributeCategories as $v) {
-            for ($i = 1; $i <= 3; $i++) {
+            foreach ($attributeArray as $attributeKey) {
                 $attribute = new Attribute();
                 $attribute
-                    ->setName('attribut ' . $i)
-                    ->setAttributeCategory($v)
-                    ;
+                    ->setName($attributeKey)
+                    ->setAttributeCategory($attributeCategory)
+                ;
                 $attributes[] = $attribute;
                 $manager->persist($attribute);
             }

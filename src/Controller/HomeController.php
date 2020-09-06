@@ -11,7 +11,6 @@ class HomeController extends AbstractController
      * @Route("/", name="home")
      */
     public function __invoke() {
-
         return $this->render('home.html.twig', [
         ]);
     }

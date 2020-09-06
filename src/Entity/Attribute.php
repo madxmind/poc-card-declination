@@ -33,6 +33,11 @@ class Attribute
         return $this->id;
     }
 
+    public function __toString()
+    {
+        return ($this->getAttributeCategory() ? ucfirst($this->getAttributeCategory()->getName()) . ' : ' : '') . $this->getName();
+    }
+
     public function getName(): ?string
     {
         return $this->name;
@@ -55,10 +60,5 @@ class Attribute
         $this->attributeCategory = $attributeCategory;
 
         return $this;
-    }
-
-    public function __toString()
-    {
-        return ($this->getAttributeCategory() ? ucfirst($this->getAttributeCategory()->getName()) . ' : ' : '') . $this->getName();
     }
 }

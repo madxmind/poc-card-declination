@@ -16,4 +16,5 @@ return [
     Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
     Liip\ImagineBundle\LiipImagineBundle::class => ['all' => true],
     Translation\Bundle\TranslationBundle::class => ['all' => true],
+    FOS\JsRoutingBundle\FOSJsRoutingBundle::class => ['all' => true],
 ];

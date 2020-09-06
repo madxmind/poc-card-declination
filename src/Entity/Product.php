@@ -35,16 +35,6 @@ class Product
     private $description;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private $shortDescription = [];
-
-    // /**
-    //  * @ORM\Column(type="json", nullable=true)
-    //  */
-    // private $desc3 = [];
-
-    /**
      * @ORM\Column(type="float")
      */
     private $price;
@@ -83,6 +73,16 @@ class Product
      */
     private $updatedAt;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $acceptOrderOutOfStock;
+
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $minimalQuantity;
+
     public function __construct()
     {
         $this->productDeclinations = new ArrayCollection();
@@ -95,6 +95,11 @@ class Product
         return $this->id;
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     public function getName(): ?string
     {
         return $this->name;
@@ -103,18 +108,6 @@ class Product
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getShortDescription(): ?array
-    {
-        return $this->shortDescription;
-    }
-
-    public function setShortDescription(?array $shortDescription): self
-    {
-        $this->shortDescription = $shortDescription;
 
         return $this;
     }
@@ -130,18 +123,6 @@ class Product
 
         return $this;
     }
-
-    // public function getDesc3(): ?array
-    // {
-    //     return $this->desc3;
-    // }
-
-    // public function setDesc3(?array $desc3): self
-    // {
-    //     $this->desc3 = $desc3;
-
-    //     return $this;
-    // }
 
     public function getPrice(): ?float
     {
@@ -196,11 +177,6 @@ class Product
         }
 
         return $this;
-    }
-
-    public function __toString()
-    {
-        return $this->name;
     }
 
     /**
@@ -274,6 +250,30 @@ class Product
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getAcceptOrderOutOfStock(): ?bool
+    {
+        return $this->acceptOrderOutOfStock;
+    }
+
+    public function setAcceptOrderOutOfStock(bool $acceptOrderOutOfStock): self
+    {
+        $this->acceptOrderOutOfStock = $acceptOrderOutOfStock;
+
+        return $this;
+    }
+
+    public function getMinimalQuantity(): ?int
+    {
+        return $this->minimalQuantity;
+    }
+
+    public function setMinimalQuantity(?int $minimalQuantity): self
+    {
+        $this->minimalQuantity = $minimalQuantity;
 
         return $this;
     }

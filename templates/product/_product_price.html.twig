@@ -1,0 +1,5 @@
+{% if product.productDeclinations|length <= 0 %}
+    {{ product.price }}€
+{% elseif productDeclination is defined and productDeclination is not null %}
+    {{ productDeclination.price ?? product.price }}€
+{% endif %}

@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity(repositoryClass=AttributeCategoryRepository::class)
  */
@@ -29,6 +30,13 @@ class AttributeCategory
      */
     private $attributes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=AttributeCategoryGroup::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $attributeCategoryGroup;
+
+
     public function __construct()
     {
         $this->attributes = new ArrayCollection();
@@ -37,6 +45,11 @@ class AttributeCategory
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getName(): ?string
@@ -82,8 +95,15 @@ class AttributeCategory
         return $this;
     }
 
-    public function __toString()
+    public function getAttributeCategoryGroup(): ?AttributeCategoryGroup
     {
-        return $this->name;
+        return $this->attributeCategoryGroup;
+    }
+
+    public function setAttributeCategoryGroup(?AttributeCategoryGroup $attributeCategoryGroup): self
+    {
+        $this->attributeCategoryGroup = $attributeCategoryGroup;
+
+        return $this;
     }
 }

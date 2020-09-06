@@ -1,3 +1,101 @@
+$(document).ready(function() {
+    if (document.querySelector('#bloc_attribute_categories')) {
+        selectGammes();
+    }
+});
+
+$('#bloc_attribute_categories').on('change', '.select-attribute', function () {
+    selectGammes($(this).data('attributeCategoryId'));
+})
+$('#bloc_attribute_categories').on('click', '.image-attribute', function(e){
+    e.preventDefault();
+    $('.image-attribute').removeClass('selected');
+    $('.image-attribute img').removeClass('rounded-circle');
+    $(this).addClass('selected');
+    $(this).find('img').addClass('rounded-circle');
+
+    selectGammes($(this).data('attributeCategoryId'));
+})
+
+function selectGammes(attributeCategoryId = null)
+{
+    // Remove previous informations
+    if(document.querySelector('.bloc-attribute-category')) {
+        $('.bloc-attribute-category').each(function () {
+            if($(this).data('attributeNumber') > $('#bloc_attribute_category_' + attributeCategoryId).data('attributeNumber')) {
+                $(this).remove();
+            }
+        });
+    }
+    $('#bloc_price_product_detail').html('');
+    // -----
+
+    $.ajax({
+        url: Routing.generate("select-attributes", {
+            product:$('#bloc_attribute_categories').data("productId"),
+            attributeCategoryId:attributeCategoryId,
+            attributesString:getAttributesString() // attributesString : 5-2|6-11|8-73
+        }),
+        type:'POST',
+        dataType:'JSON',
+    }).done(function(data){
+
+        $('#bloc_attribute_categories').append(data.html);
+        var attributeNumber = $('#bloc_attribute_categories').find('#bloc_attribute_category_' + attributeCategoryId).data('attributeNumber');
+        attributeNumber = attributeNumber ? attributeNumber +1 : 1;
+        $('#bloc_attribute_categories').find('#bloc_attribute_category_' + data.attributeCategoryId).attr('data-attribute-number', attributeNumber);
+
+        if(data.attributeCategoryId) {
+            selectGammes(data.attributeCategoryId);
+        } else {
+            $.ajax({
+                url: Routing.generate("details-declination", {
+                    product:$('#bloc_attribute_categories').data("productId"),
+                    attributesString:getAttributesString() // attributesString : 1-2|2-11|3-73
+                }),
+                type:'POST',
+                dataType:'JSON'
+            }).done(function(data) {
+                if(data.html_price) {
+                    $('#bloc_price_product_detail').html(data.html_price);
+                }
+            });
+        }
+
+    });
+}
+
+
+function getAttributesString() {
+    var attributesString = '';
+    if(document.querySelector('.select-attribute')) {
+        $('.select-attribute').each(function () {
+            attributesString += $(this).data('attributeCategoryId') + '-' + $(this).val() + '|';
+        });
+    }
+    if(document.querySelector('.image-attribute')) {
+        $('.image-attribute.selected').each(function () {
+            attributesString += $(this).data('attributeCategoryId') + '-' + $(this).data('attributeId') + '|';
+        });
+    }
+    if(attributesString != '') {
+        attributesString = attributesString.substr(0, attributesString.length - 1);
+    }
+    return attributesString;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Gestion multiple des collections (CollectionType prototype)
 $(document).on('click', '.collection-add', (e) => {
     let collection = $('#' + e.currentTarget.dataset.collection);

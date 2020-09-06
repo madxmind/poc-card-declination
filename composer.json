@@ -11,6 +11,7 @@
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.7",
+        "friendsofsymfony/jsrouting-bundle": "^2.6",
         "liip/imagine-bundle": "^2.3",
         "php-translation/symfony-bundle": "^0.12.1",
         "phpdocumentor/reflection-docblock": "^5.2",
@@ -84,6 +85,7 @@
     },
     "scripts": {
         "prepare": [
+            "php bin/console doctrine:database:drop -f",
             "php bin/console doctrine:database:create",
             "php bin/console doctrine:schema:update -f",
             "php bin/console doctrine:fixtures:load -n"
@@ -104,7 +106,7 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
+            "allow-contrib": true,
             "require": "5.1.*"
         }
     }

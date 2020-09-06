@@ -1,0 +1,21 @@
+<div id="bloc_attribute_category_{{ attributeCategory.id }}" class="bloc-attribute-category" style="border: 2px solid blue">
+    {% if attributeCategory.attributeCategoryGroup.reference == 'image' %}
+        <p>{{ attributeCategory.name }}</p>
+        <div>
+            {% for attribute in attributes %}
+                <a href="#" class="image-attribute{{ loop.index == 1 ? " selected" }}" data-attribute-category-id="{{ attributeCategory.id }}" data-attribute-id="{{ attribute.id }}">
+                    <img class="{{ loop.index == 1 ? " rounded-circle" }}" title="{{ attribute.name }}" alt="{{ attribute.name }}" height="100" src="https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg">
+                </a>
+            {% endfor %}
+        </div>
+    {% elseif attributeCategory.attributeCategoryGroup.reference == 'select' %}
+        <label>
+            <select name="select_attribute_category_{{ attributeCategory.id }}" class="select-attribute" data-attribute-category-id="{{ attributeCategory.id }}">
+                <option disabled>{{ attributeCategory.name }}</option>
+                {% for attribute in attributes %}
+                    <option value="{{ attribute.id }}" {{ loop.first ? "selected" }}>{{ attribute.name }}</option>
+                {% endfor %}
+            </select>
+        </label>
+    {% endif %}
+</div>

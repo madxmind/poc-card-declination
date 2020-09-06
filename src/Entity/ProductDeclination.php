@@ -25,12 +25,12 @@ class ProductDeclination
     private $id;
 
     /**
-     * @ORM\Column(type="smallint")
+     * @ORM\Column(type="smallint", nullable=true)
      */
     private $quantity;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $price;
 
@@ -84,7 +84,7 @@ class ProductDeclination
         return $this->quantity;
     }
 
-    public function setQuantity(int $quantity): self
+    public function setQuantity(?int $quantity): self
     {
         $this->quantity = $quantity;
 
@@ -96,7 +96,7 @@ class ProductDeclination
         return $this->price;
     }
 
-    public function setPrice(float $price): self
+    public function setPrice(?float $price): self
     {
         $this->price = $price;
 

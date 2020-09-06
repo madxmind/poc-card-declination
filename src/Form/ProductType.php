@@ -17,30 +17,15 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('description')
-            ->add('shortDescription', CollectionType::class, [
-                'entry_type' => TextType::class,
-                'data' =>  [
-                    'fr' => 'a',
-                    'en' => 'b',
-                    'de' => 'c',
-                ],
-                // 'empty_data' =>  [
-                //     'fr' => 'a',
-                //     'en' => 'b',
-                //     'de' => 'c',
-                // ],
-            ])
-            // ->add('desc3', null, [])
-            ->add('imageFile', VichImageType::class, [
+            ->add('description')->add('imageFile', VichImageType::class, [
                 'required' => false,
                 'allow_delete' => true,
                 'download_uri' => false,
                 'imagine_pattern' => 'squared_thumbnail_mini',
                 'asset_helper' => true,
             ])
-            ->add('price')
             ->add('quantity')
+            ->add('price')
             ->add('productCategories')
             ->add('productDeclinations', CollectionType::class, [
                 'entry_type' => ProductDeclinationType::class,
