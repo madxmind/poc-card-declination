@@ -115,8 +115,7 @@ class ProductController extends AbstractController
      */
     public function selectAttributes(
         Product $product,
-        Request $request,
-        AttributeCategoryRepository $attributeCategoryRepository
+        Request $request
     ): JsonResponse
     {
         $attributesArray = $this->getArrayAttributesFromNextAttributeCategory(
