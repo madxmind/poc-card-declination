@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f0eb3729-47f8-4689-a169-0828a09b8f20" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/poc-card-declination.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/poc-card-declination.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProductController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,6 +184,10 @@
       <workItem from="1599409866801" duration="3667000" />
       <workItem from="1599417303461" duration="103000" />
       <workItem from="1599452191781" duration="2301000" />
+      <workItem from="1599455030908" duration="53000" />
+      <workItem from="1599455224926" duration="204000" />
+      <workItem from="1599456164208" duration="227000" />
+      <workItem from="1599562564215" duration="37000" />
     </task>
     <servers />
   </component>
